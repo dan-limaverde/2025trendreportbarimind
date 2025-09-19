@@ -1,0 +1,2164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#10a37f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>bariMind | Tendências 2025 - Relatório Premium</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200;12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@200;300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111111;
+            
+            --accent-primary: #10a37f;
+            --accent-glow: #00ff88;
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-pink: #ec4899;
+            
+            --text-primary: rgba(255, 255, 255, 0.95);
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.4);
+            
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-light: rgba(255, 255, 255, 0.1);
+            
+            --gradient-mesh: radial-gradient(at 40% 20%, hsla(280, 100%, 70%, 0.3) 0px, transparent 50%),
+                            radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.2) 0px, transparent 50%),
+                            radial-gradient(at 0% 50%, hsla(355, 100%, 93%, 0.1) 0px, transparent 50%),
+                            radial-gradient(at 80% 100%, hsla(240, 100%, 70%, 0.2) 0px, transparent 50%),
+                            radial-gradient(at 0% 100%, hsla(343, 100%, 76%, 0.1) 0px, transparent 50%);
+        }
+        
+        /* Base Styles */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            animation: pageLoad 0.8s ease-out;
+        }
+        
+        @keyframes pageLoad {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* Animated Mesh Background */
+        .mesh-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.8;
+            background: var(--bg-primary);
+        }
+        
+        .mesh-background::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: var(--gradient-mesh);
+            animation: meshAnimation 25s ease infinite;
+            filter: blur(40px);
+        }
+        
+        @keyframes meshAnimation {
+            0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            33% { transform: translate(-10%, -10%) rotate(120deg) scale(1.1); }
+            66% { transform: translate(10%, -10%) rotate(240deg) scale(0.95); }
+        }
+        
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.015;
+            z-index: 1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    rgba(255, 255, 255, 0.03) 4px
+                );
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            transform: translateY(0);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        nav.hidden {
+            transform: translateY(-100%);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-glow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            position: relative;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 0;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Body overflow control */
+        body.menu-open {
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 28px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .menu-toggle span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+        
+        /* Mobile Menu Overlay */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            transition: right 0.3s ease;
+            z-index: 999;
+            padding: 80px 40px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        
+        .mobile-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .mobile-link:hover {
+            color: var(--accent-primary);
+            padding-left: 10px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 0 60px;
+            position: relative;
+        }
+        
+        .hero-content {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(16, 163, 127, 0.1);
+            border: 1px solid rgba(16, 163, 127, 0.3);
+            border-radius: 100px;
+            margin-bottom: 32px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+        
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(48px, 10vw, 96px);
+            font-weight: 700;
+            font-optical-sizing: auto;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .title-line {
+            display: block;
+            position: relative;
+            overflow: visible;
+            margin-bottom: 0.2em;
+        }
+        
+        .title-word {
+            display: inline-block;
+            animation: slideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: var(--delay);
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .title-highlight {
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-glow), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+        
+        .hero-subtitle {
+            font-size: 20px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-out 0.7s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .subtitle-accent {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            color: var(--text-primary);
+            font-weight: 400;
+        }
+        
+        /* Meta Info */
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-subtle);
+            animation: fadeIn 1s ease-out 1s forwards;
+            opacity: 0;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        
+        .meta-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+        
+        .meta-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-right: 4px;
+        }
+        
+        /* Intro Section */
+        .intro {
+            padding: 120px 0;
+            position: relative;
+        }
+        
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .intro-content {
+            position: relative;
+        }
+        
+        .section-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        .section-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+        
+        .section-text {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        
+        .intro-visual {
+            position: relative;
+            height: 400px;
+        }
+        
+        .floating-card {
+            position: absolute;
+            background: linear-gradient(135deg, rgba(16, 163, 127, 0.05), rgba(139, 92, 246, 0.05));
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .floating-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 0 20px 40px rgba(16, 163, 127, 0.2);
+        }
+        
+        .card-1 {
+            top: 20px;
+            left: 20px;
+            width: 200px;
+            animation: float1 6s ease-in-out infinite;
+        }
+        
+        .card-2 {
+            top: 80px;
+            right: 40px;
+            width: 180px;
+            animation: float2 8s ease-in-out infinite;
+        }
+        
+        .card-3 {
+            bottom: 40px;
+            left: 60px;
+            width: 220px;
+            animation: float3 7s ease-in-out infinite;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(-2deg); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(1deg); }
+        }
+        
+        .card-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 36px;
+            font-weight: 300;
+            color: var(--accent-primary);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        
+        .card-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Trends Section */
+        .trends {
+            padding: 80px 0;
+        }
+        
+        .trend {
+            margin-bottom: 160px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .trend.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .trend-header {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .trend-number-wrapper {
+            position: relative;
+            height: 180px;
+        }
+        
+        .trend-number {
+            font-family: 'Manrope', sans-serif;
+            font-size: 180px;
+            font-weight: 200;
+            line-height: 1;
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: linear-gradient(180deg, transparent 0%, var(--accent-primary) 50%, transparent 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.2;
+            transition: all 0.5s ease;
+            letter-spacing: -8px;
+        }
+        
+        .trend:hover .trend-number {
+            opacity: 0.35;
+            transform: scale(1.05);
+        }
+        
+        @media (hover: hover) {
+            .trend:hover .trend-number {
+                opacity: 0.4;
+                transform: scale(1.1);
+            }
+        }
+        
+        .trend-info {
+            padding-top: 20px;
+        }
+        
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+        }
+        
+        .trend-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+        
+        .trend-description {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 80%;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 60px 0;
+        }
+        
+        .stat-card {
+            position: relative;
+            padding: 40px 32px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-subtle);
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-purple));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--accent-primary);
+            background: linear-gradient(135deg, rgba(16, 163, 127, 0.05), rgba(139, 92, 246, 0.05));
+            box-shadow: 0 20px 40px rgba(16, 163, 127, 0.15);
+        }
+        
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-value {
+            font-family: 'Manrope', sans-serif;
+            font-size: 64px;
+            font-weight: 300;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-glow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            position: relative;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(16, 163, 127, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+        
+        .feature-card:hover::after {
+            opacity: 1;
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+            padding: 12px;
+            background: linear-gradient(135deg, rgba(16, 163, 127, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 12px;
+        }
+        
+        .feature-title {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .feature-text {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Evolution Chart */
+        .evolution {
+            padding: 120px 0;
+            background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+        }
+        
+        .evolution-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .chart-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 40px 40px;
+            background: #000;
+            border-radius: 24px;
+            overflow: visible;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 50px;
+            position: relative;
+            align-items: flex-end;
+            height: 450px;
+        }
+
+        .bar-wrapper {
+            width: 100%;
+            height: 350px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .bar-percentage {
+            position: absolute;
+            top: -50px;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            z-index: 2;
+        }
+        
+        .chart-line {
+            position: absolute;
+            bottom: 60px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-purple) 100%);
+            opacity: 0.3;
+        }
+        
+        .swipe-indicator {
+            display: none;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
+        }
+        
+        .chart-bar {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .bar-fill {
+            width: 100%;
+            max-width: 140px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: growBar 1.5s ease-out forwards;
+            animation-delay: var(--delay);
+            height: 0;
+        }
+        
+        .bar-1 {
+            background: #10a37f;
+        }
+
+        .bar-2 {
+            background: #10a37f;
+        }
+
+        .bar-3 {
+            background: linear-gradient(180deg, #8b5cf6, #10a37f);
+        }
+
+        .bar-4 {
+            background: linear-gradient(180deg, #10a37f, #3b82f6);
+        }
+
+        @keyframes growBar {
+            from {
+                height: 0;
+            }
+            to {
+                height: var(--height);
+            }
+        }
+        
+        .bar-fill:hover {
+            filter: brightness(1.3);
+            box-shadow: 0 0 40px rgba(16, 163, 127, 0.6);
+            transform: translateY(-5px);
+        }
+        
+        .bar-1:hover {
+            box-shadow: 0 0 40px rgba(16, 163, 127, 0.6);
+        }
+        
+        .bar-2:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+        }
+        
+        .bar-3:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+        }
+        
+        .bar-4:hover {
+            box-shadow: 0 0 40px rgba(236, 72, 153, 0.6);
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Manrope', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+        }
+        
+        .bar-label {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .bar-label strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 6px;
+        }
+
+        .bar-year {
+            display: block;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* References */
+        .references {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent, rgba(16, 163, 127, 0.02));
+        }
+        
+        .references-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .references-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+        }
+        
+        .reference-item {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .reference-item:hover {
+            border-color: var(--accent-primary);
+            background: rgba(16, 163, 127, 0.05);
+            transform: translateX(4px);
+        }
+        
+        .reference-number {
+            display: inline-block;
+            padding: 2px 8px;
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+        
+        .reference-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s ease;
+        }
+        
+        .reference-link:hover {
+            color: var(--accent-primary);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 80px 0 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-subtle);
+        }
+        
+        .footer-logo {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-glow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        
+        .footer-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 32px;
+        }
+        
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--border-light);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .scroll-indicator::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            margin-top: 10px;
+            animation: scrollBounce 2s infinite;
+        }
+        
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+        
+        /* Cursor Effects */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: all 0.1s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+        
+        .cursor.active {
+            transform: translate(-50%, -50%) scale(1.5);
+            background: rgba(16, 163, 127, 0.3);
+        }
+        
+        /* Mobile Responsive - Enhanced */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            /* Hero adjustments */
+            .hero {
+                min-height: 100vh;
+                padding: 100px 0 60px;
+            }
+            
+            h1 {
+                font-size: clamp(42px, 12vw, 56px);
+                letter-spacing: -1px;
+                margin-bottom: 20px;
+            }
+            
+            .hero-subtitle {
+                font-size: 16px;
+                margin-bottom: 32px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                gap: 16px;
+                margin-top: 40px;
+                padding-top: 40px;
+            }
+            
+            .meta-item {
+                justify-content: center;
+            }
+            
+            .meta-value {
+                font-size: 20px;
+            }
+            
+            /* Navigation */
+            nav {
+                padding: 16px 0;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            /* Intro section */
+            .intro {
+                padding: 60px 0;
+            }
+            
+            .intro-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+            
+            .section-text {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            
+            .intro-visual {
+                height: 300px;
+                display: none; /* Hide floating cards on mobile */
+            }
+            
+            /* Trends */
+            .trends {
+                padding: 40px 0;
+            }
+            
+            .trend {
+                margin-bottom: 80px;
+            }
+            
+            .trend-header {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            
+            .trend-number-wrapper {
+                height: 80px;
+            }
+            
+            .trend-number {
+                font-size: 100px;
+                opacity: 0.15;
+                top: -20px;
+                letter-spacing: -4px;
+            }
+            
+            .trend-title {
+                font-size: 36px;
+                margin-bottom: 16px;
+                letter-spacing: -1px;
+            }
+            
+            .trend-description {
+                font-size: 16px;
+                max-width: 100%;
+            }
+            
+            /* Stats Grid */
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin: 40px 0;
+            }
+            
+            .stat-card {
+                padding: 28px 20px;
+            }
+            
+            .stat-value {
+                font-size: 48px;
+                letter-spacing: -1px;
+            }
+            
+            .stat-label {
+                font-size: 13px;
+            }
+            
+            /* Features Grid */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 40px;
+            }
+            
+            .feature-card {
+                padding: 28px;
+            }
+            
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 20px;
+            }
+            
+            .feature-title {
+                font-size: 20px;
+            }
+            
+            .feature-text {
+                font-size: 14px;
+            }
+            
+            /* Evolution Chart Mobile */
+            .evolution {
+                padding: 60px 0;
+            }
+            
+            .evolution-header {
+                margin-bottom: 40px;
+            }
+            
+            .chart-container {
+                padding: 32px 16px;
+                overflow-x: auto;
+                overflow-y: visible;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 16px;
+            }
+            
+            .chart-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                min-width: 320px;
+            }
+            
+            .chart-line {
+                display: none;
+            }
+            
+            .swipe-indicator {
+                display: block;
+            }
+            
+            .bar-fill {
+                width: 60px;
+            }
+            
+            .bar-value {
+                font-size: 20px;
+                top: -28px;
+            }
+            
+            .bar-label {
+                font-size: 11px;
+            }
+            
+            .bar-year {
+                font-size: 10px;
+            }
+            
+            /* References */
+            .references {
+                padding: 60px 0;
+            }
+            
+            .references-header {
+                margin-bottom: 40px;
+            }
+            
+            .references-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .reference-item {
+                padding: 16px;
+            }
+            
+            .reference-link {
+                font-size: 13px;
+            }
+            
+            /* Footer */
+            footer {
+                padding: 60px 0 40px;
+            }
+            
+            .footer-logo {
+                font-size: 28px;
+            }
+            
+            /* Hide scroll indicator on mobile */
+            .scroll-indicator {
+                display: none;
+            }
+            
+            /* Hide custom cursor on mobile */
+            .cursor {
+                display: none;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 375px) {
+            .container {
+                padding: 0 12px;
+            }
+            
+            h1 {
+                font-size: 36px;
+                letter-spacing: -0.5px;
+                line-height: 1.2;
+            }
+            
+            .trend-title {
+                font-size: 26px;
+                line-height: 1.1;
+            }
+            
+            .stat-value {
+                font-size: 36px;
+            }
+            
+            .trend-number {
+                font-size: 72px;
+                letter-spacing: -2px;
+            }
+            
+            .section-title {
+                font-size: 26px;
+            }
+            
+            .chart-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+            
+            .bar-fill {
+                width: 50px;
+            }
+            
+            .hero-subtitle {
+                font-size: 15px;
+                line-height: 1.5;
+            }
+        }
+        
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .cursor {
+                display: none;
+            }
+            
+            /* Remove hover effects on touch devices */
+            .stat-card:hover,
+            .feature-card:hover,
+            .reference-item:hover {
+                transform: none;
+            }
+            
+            /* Add tap highlight */
+            .stat-card,
+            .feature-card,
+            .reference-item {
+                -webkit-tap-highlight-color: rgba(16, 163, 127, 0.1);
+            }
+        }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-glow);
+        }
+        
+        /* Selection */
+        ::selection {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="mesh-background"></div>
+    <div class="noise-overlay"></div>
+    
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">bariMind</div>
+            <div class="nav-links" id="navLinks">
+                <a href="#trends" class="nav-link">Tendências</a>
+                <a href="#evolution" class="nav-link">Evolução</a>
+                <a href="#references" class="nav-link">Referências</a>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="#trends" class="mobile-link">Tendências</a>
+            <a href="#evolution" class="mobile-link">Evolução</a>
+            <a href="#references" class="mobile-link">Referências</a>
+        </div>
+    </div>
+    
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>Relatório 2025</span>
+                </div>
+                
+                <h1>
+                    <span class="title-line">
+                        <span class="title-word" style="--delay: 0.1s">3</span>
+                        <span class="title-word" style="--delay: 0.2s">Tendências</span>
+                        <span class="title-word" style="--delay: 0.3s">em</span>
+                    </span>
+                    <span class="title-line">
+                        <span class="title-word" style="--delay: 0.4s">Cirurgia</span>
+                        <span class="title-word" style="--delay: 0.5s">Bariátrica</span>
+                    </span>
+                    <span class="title-line">
+                        <span class="title-word" style="--delay: 0.6s">que</span>
+                        <span class="title-word" style="--delay: 0.7s">Mudarão</span>
+                        <span class="title-word" style="--delay: 0.8s">2025</span>
+                    </span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Como <span class="subtitle-accent">inteligência artificial</span>, terapêutica digital e 
+                    medicina de precisão estão transformando o cuidado ao paciente no Brasil.
+                </p>
+                
+                <div class="meta-info">
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span><span class="meta-value">26</span> referências científicas</span>
+                    </div>
+                    <div class="meta-item">
+                        <svg class="meta-icon" viewBox="0 0 24 24" fill="none">
+                            <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span><span class="meta-value">100%</span> baseado em evidências</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Introduction Section -->
+    <section id="intro" class="intro">
+        <div class="container">
+            <div class="intro-grid">
+                <div class="intro-content">
+                    <div class="section-label">O Momento é Agora</div>
+                    <h2 class="section-title">
+                        A convergência tecnológica está 
+                        <span class="title-highlight">redefinindo</span> 
+                        o futuro
+                    </h2>
+                    <p class="section-text">
+                        A inteligência artificial de última geração, a terapêutica digital validada 
+                        e a medicina de precisão estão criando oportunidades sem precedentes para 
+                        revolucionar o cuidado bariátrico no Brasil. Este relatório apresenta as 
+                        três tendências mais impactantes para 2025, com estratégias práticas e 
+                        métricas de sucesso comprovadas cientificamente.
+                    </p>
+                </div>
+                
+                <div class="intro-visual">
+                    <div class="floating-card card-1">
+                        <div class="card-value">95%+</div>
+                        <div class="card-label">Precisão em IA</div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-value">148M</div>
+                        <div class="card-label">Usuários WhatsApp</div>
+                    </div>
+                    <div class="floating-card card-3">
+                        <div class="card-value">2X</div>
+                        <div class="card-label">Maior eficácia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Trends Section -->
+    <section id="trends" class="trends">
+        <div class="container">
+            <!-- Trend 1 -->
+            <article class="trend" data-trend="1">
+                <div class="trend-header">
+                    <div class="trend-number-wrapper">
+                        <div class="trend-number">01</div>
+                    </div>
+                    <div class="trend-info">
+                        <div class="trend-badge">IA Avançada</div>
+                        <h3 class="trend-title">
+                            Inteligência Artificial de 
+                            <span class="title-highlight">Última Geração</span>
+                        </h3>
+                        <p class="trend-description">
+                            Os modelos de linguagem mais avançados estão revolucionando a medicina com 
+                            precisão superior a 95% em diagnósticos complexos. A convergência entre IA 
+                            e cuidados bariátricos atingiu um ponto de inflexão histórico.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">95%+</div>
+                        <div class="stat-label">Precisão de IA em diagnósticos bariátricos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">100K+</div>
+                        <div class="stat-label">Tokens de contexto em modelos avançados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">87%</div>
+                        <div class="stat-label">Médicos brasileiros já no WhatsApp</div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Modelos de Linguagem Avançados</h4>
+                        <p class="feature-text">
+                            GPT-4 demonstra 91.7% de precisão em diagnósticos, com evolução contínua 
+                            para modelos ainda mais precisos e confiáveis.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M21 16V8C20.9996 7.64927 20.9071 7.30481 20.7315 7.00116C20.556 6.69751 20.3037 6.44536 20 6.27L13 2.27C12.696 2.09446 12.3511 2.00205 12 2.00205C11.6489 2.00205 11.304 2.09446 11 2.27L4 6.27C3.69626 6.44536 3.44398 6.69751 3.26846 7.00116C3.09294 7.30481 3.00036 7.64927 3 8V16C3.00036 16.3507 3.09294 16.6952 3.26846 16.9988C3.44398 17.3025 3.69626 17.5546 4 17.73L11 21.73C11.304 21.9055 11.6489 21.998 12 21.998C12.3511 21.998 12.696 21.9055 13 21.73L20 17.73C20.3037 17.5546 20.556 17.3025 20.7315 16.9988C20.9071 16.6952 20.9996 16.3507 21 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 12V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Infraestrutura Pronta</h4>
+                        <p class="feature-text">
+                            87% dos médicos e 82% dos pacientes brasileiros já utilizam WhatsApp, 
+                            criando base perfeita para implementação de IA.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Trend 2 -->
+            <article class="trend" data-trend="2">
+                <div class="trend-header">
+                    <div class="trend-number-wrapper">
+                        <div class="trend-number">02</div>
+                    </div>
+                    <div class="trend-info">
+                        <div class="trend-badge">Terapêutica Digital</div>
+                        <h3 class="trend-title">
+                            Programas Digitais 
+                            <span class="title-highlight">Validados</span>
+                        </h3>
+                        <p class="trend-description">
+                            O programa alemão DiGA estabeleceu o padrão global para terapêutica digital 
+                            com reembolso governamental, demonstrando resultados impressionantes em 
+                            estudos controlados e abrindo caminho para implementação no Brasil.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">€150</div>
+                        <div class="stat-label">Reembolso mensal do governo alemão</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">148M</div>
+                        <div class="stat-label">Usuários WhatsApp no Brasil</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">76%</div>
+                        <div class="stat-label">Redução de ansiedade com TCC digital</div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89318 18.7122 8.75608 18.1676 9.45769C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Validação Internacional</h4>
+                        <p class="feature-text">
+                            Estudos validados na Amazônia com 240 participantes demonstram 
+                            eficácia de intervenções digitais no contexto brasileiro.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6C5.46957 2 4.96086 2.21071 4.58579 2.58579C4.21071 2.96086 4 3.46957 4 4V20C4 20.5304 4.21071 21.0391 4.58579 21.4142C4.96086 21.7893 5.46957 22 6 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 2V8H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 13H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M16 17H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 9H9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">TCC Digital Comprovada</h4>
+                        <p class="feature-text">
+                            Terapia Cognitivo-Comportamental digital com gamificação mostrando 
+                            melhorias significativas em ansiedade e adesão ao tratamento.
+                        </p>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Trend 3 -->
+            <article class="trend" data-trend="3">
+                <div class="trend-header">
+                    <div class="trend-number-wrapper">
+                        <div class="trend-number">03</div>
+                    </div>
+                    <div class="trend-info">
+                        <div class="trend-badge">Medicina Personalizada</div>
+                        <h3 class="trend-title">
+                            Medicina de 
+                            <span class="title-highlight">Precisão</span>
+                        </h3>
+                        <p class="trend-description">
+                            Testes genéticos e análise de microbioma estão revolucionando a seleção 
+                            de tratamento e previsão de resultados, permitindo personalização sem 
+                            precedentes no cuidado bariátrico.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">Precisão na previsão de resposta a GLP-1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">85%</div>
+                        <div class="stat-label">Taxa de sucesso com medicina personalizada</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">2X</div>
+                        <div class="stat-label">Maior perda de peso com perfil genético</div>
+                    </div>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L22 8.5V15.5L12 22L2 15.5V8.5L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 22V15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M22 8.5L12 15.5L2 8.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 15.5L12 8.5L22 15.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Testes Genéticos Avançados</h4>
+                        <p class="feature-text">
+                            Painéis multigene (FTO, POMC, MC4R) preveem resposta a medicamentos 
+                            e estratégias de perda de peso com alta precisão.
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M2 12H22" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h4 class="feature-title">Análise de Microbioma</h4>
+                        <p class="feature-text">
+                            Microbioma intestinal prediz eficácia de perda de peso e permite 
+                            ajustes personalizados no tratamento nutricional.
+                        </p>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+    
+    <!-- Evolution Chart -->
+    <section id="evolution" class="evolution">
+        <div class="container">
+            <div class="evolution-header">
+                <h2 class="section-title">
+                    Evolução da Precisão em IA Médica
+                </h2>
+            </div>
+
+            <div class="chart-container">
+                <div class="chart-grid">
+                    <div class="chart-bar">
+                        <span class="bar-percentage">86.8%</span>
+                        <div class="bar-wrapper">
+                            <div class="bar-fill bar-1" style="--height: 86.8%; --delay: 0.2s"></div>
+                        </div>
+                        <div class="bar-label">
+                            <strong>GPT-3.5</strong>
+                            <span class="bar-year">2023</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="bar-percentage">91.7%</span>
+                        <div class="bar-wrapper">
+                            <div class="bar-fill bar-2" style="--height: 91.7%; --delay: 0.4s"></div>
+                        </div>
+                        <div class="bar-label">
+                            <strong>GPT-4</strong>
+                            <span class="bar-year">2024</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="bar-percentage">95%</span>
+                        <div class="bar-wrapper">
+                            <div class="bar-fill bar-3" style="--height: 95%; --delay: 0.6s"></div>
+                        </div>
+                        <div class="bar-label">
+                            <strong>IA Atual</strong>
+                            <span class="bar-year">2025</span>
+                        </div>
+                    </div>
+                    <div class="chart-bar">
+                        <span class="bar-percentage">98%</span>
+                        <div class="bar-wrapper">
+                            <div class="bar-fill bar-4" style="--height: 98%; --delay: 0.8s"></div>
+                        </div>
+                        <div class="bar-label">
+                            <strong>Projeção</strong>
+                            <span class="bar-year">2026</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- References -->
+    <section id="references" class="references">
+        <div class="container">
+            <div class="references-header">
+                <div class="section-label">Bibliografia</div>
+                <h2 class="section-title">
+                    <span class="title-highlight">26</span> Referências Científicas
+                </h2>
+            </div>
+            
+            <div class="references-grid">
+                <div class="reference-item">
+                    <span class="reference-number">[1]</span>
+                    <a href="https://doi.org/10.1016/j.soard.2024.04.014" class="reference-link" target="_blank">
+                        Lee Y et al. ChatGPT-4 Performance in Bariatric Surgery. SOARD. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[2]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/38782611/" class="reference-link" target="_blank">
+                        ASMBS AI Taskforce. Surgery for Obesity and Related Diseases. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[3]</span>
+                    <a href="http://www.cityam.com/230372/digital-health-wearables-and-apps-9-in-10-brazilian-doctors-use-whatsapp-to-talk-to-patients" class="reference-link" target="_blank">
+                        Cello Health Insight. Brazilian Doctors WhatsApp Survey (87%). 2016-2017
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[4]</span>
+                    <a href="https://doi.org/10.1007/s11695-019-03849-w" class="reference-link" target="_blank">
+                        Sheikhtaheri et al. (Iran) AI 98% Accuracy. Obesity Surgery. 2019
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[5]</span>
+                    <a href="https://doi.org/10.1016/S2589-7500(23)00135-8" class="reference-link" target="_blank">
+                        Saux et al. SOPHIA Study (9,861 patients). Lancet Digital Health. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[6]</span>
+                    <a href="https://doi.org/10.1038/s41366-023-01415-0" class="reference-link" target="_blank">
+                        Gemesi K et al. Oviva Direkt DiGA (Germany). Int J Obesity. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[7]</span>
+                    <a href="https://doi.org/10.2196/54446" class="reference-link" target="_blank">
+                        Holanda et al. WhatsApp Intervention Amazon (240 participants). JMIR. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[8]</span>
+                    <a href="https://doi.org/10.1001/jamanetworkopen.2023.27099" class="reference-link" target="_blank">
+                        Sockalingam et al. Telephone CBT RCT (306 participants). JAMA. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[9]</span>
+                    <a href="https://doi.org/10.1002/oby.24168" class="reference-link" target="_blank">
+                        Steffen et al. Cleveland Clinic Microbiome Study (2+ years). Obesity. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[10]</span>
+                    <a href="https://www.ddw.org/education-training/2024-presidential-plenary" class="reference-link" target="_blank">
+                        Hurtado et al. Hungry Gut Score (95% accuracy). Mayo Clinic DDW. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[11]</span>
+                    <a href="https://doi.org/10.2337/db18-376-P" class="reference-link" target="_blank">
+                        Lee et al. CGM Asymptomatic Hypoglycemia (59%). Diabetes. 2018
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[12]</span>
+                    <a href="https://doi.org/10.1016/j.diabet.2021.101255" class="reference-link" target="_blank">
+                        Ciangura et al. CGM Predicting T2D Remission. Diabetes Metab. 2021
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[13]</span>
+                    <a href="https://doi.org/10.3389/fnut.2023.1274662" class="reference-link" target="_blank">
+                        Mera-Charria et al. Genetic Panel (FTO/POMC/MC4R). Front Nutr. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[14]</span>
+                    <a href="https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2807934" class="reference-link" target="_blank">
+                        Sockalingam et al. Telephone CBT Full Text. JAMA Network Open. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[15]</span>
+                    <a href="https://onlinelibrary.wiley.com/doi/10.1002/oby.24168" class="reference-link" target="_blank">
+                        Cleveland Clinic Microbiome Full Text. Obesity Journal. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[16]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/31028626/" class="reference-link" target="_blank">
+                        Sheikhtaheri et al. Iranian AI Study PubMed. Obes Surg. 2019
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[17]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/37652841/" class="reference-link" target="_blank">
+                        SOPHIA Study PubMed. Lancet Digital Health. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[18]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/38017117/" class="reference-link" target="_blank">
+                        Oviva Direkt PubMed. Int J Obesity. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[19]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/33991661/" class="reference-link" target="_blank">
+                        Ciangura CGM T2D Remission PubMed. Diabetes Metab. 2021
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[20]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/38373039/" class="reference-link" target="_blank">
+                        Amazon WhatsApp Study PubMed. JMIR Protocols. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[21]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/37535357/" class="reference-link" target="_blank">
+                        Telephone CBT PubMed. JAMA Network Open. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[22]</span>
+                    <a href="https://pubmed.ncbi.nlm.nih.gov/39497628/" class="reference-link" target="_blank">
+                        Cleveland Clinic Microbiome PubMed. Obesity. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[23]</span>
+                    <a href="https://diabetesjournals.org/diabetes/article/67/Supplement_1/376-P/60152/" class="reference-link" target="_blank">
+                        Lee et al. CGM Study Full Text. Diabetes. 2018
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[24]</span>
+                    <a href="https://clinicaltrials.gov/ct2/show/NCT03315247" class="reference-link" target="_blank">
+                        Telephone CBT Trial Registry. ClinicalTrials.gov. 2023
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[25]</span>
+                    <a href="https://diga.bfarm.de/de/verzeichnis/00872/fachkreise" class="reference-link" target="_blank">
+                        German DiGA Registry - Oviva Direkt. BfArM. 2024
+                    </a>
+                </div>
+                <div class="reference-item">
+                    <span class="reference-number">[26]</span>
+                    <a href="https://ensaiosclinicos.gov.br/rg/RBR-5zdnw6t" class="reference-link" target="_blank">
+                        Brazilian Clinical Trial Amazon WhatsApp. RBR-5zdnw6t. 2024
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">bariMind</div>
+            <p style="color: var(--text-secondary); margin-bottom: 32px;">
+                © 2025 bariMind. Todos os direitos reservados.
+            </p>
+            <div class="footer-info">
+                bariMind Tecnologia Ltda.<br>
+                CNPJ: 62.701.688/0001-94
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                menuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+            
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+        }
+        
+        // Custom Cursor
+        const cursor = document.getElementById('cursor');
+        if (cursor && window.matchMedia('(hover: hover)').matches) {
+            let mouseX = 0;
+            let mouseY = 0;
+            let cursorX = 0;
+            let cursorY = 0;
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            function animateCursor() {
+                const dx = mouseX - cursorX;
+                const dy = mouseY - cursorY;
+                
+                cursorX += dx * 0.1;
+                cursorY += dy * 0.1;
+                
+                cursor.style.left = cursorX + 'px';
+                cursor.style.top = cursorY + 'px';
+                
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+            
+            // Cursor hover effects
+            const interactiveElements = document.querySelectorAll('a, button, .stat-card, .feature-card, .floating-card, .chart-bar');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+            });
+        }
+        
+        // Navbar hide/show on scroll
+        let lastScrollTop = 0;
+        const navbar = document.getElementById('navbar');
+        
+        if (navbar) {
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    navbar.classList.add('hidden');
+                } else {
+                    navbar.classList.remove('hidden');
+                }
+                
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+            });
+        }
+        
+        // Scroll Indicator
+        const scrollIndicator = document.getElementById('scrollIndicator');
+        
+        if (scrollIndicator) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    scrollIndicator.classList.add('hidden');
+                } else {
+                    scrollIndicator.classList.remove('hidden');
+                }
+            });
+            
+            scrollIndicator.addEventListener('click', () => {
+                window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+            });
+        }
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.trend').forEach(el => observer.observe(el));
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        const offset = 80; // Height of fixed navbar
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Parallax effect on floating cards
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const cards = document.querySelectorAll('.floating-card');
+            
+            cards.forEach((card, index) => {
+                const speed = 0.5 + (index * 0.1);
+                card.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
+        });
+        
+        // Add hover effect to stat cards with nearby glow
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const cards = this.parentElement.querySelectorAll('.stat-card');
+                cards.forEach(c => {
+                    if (c !== this) {
+                        c.style.opacity = '0.7';
+                    }
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const cards = this.parentElement.querySelectorAll('.stat-card');
+                cards.forEach(c => {
+                    c.style.opacity = '1';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
